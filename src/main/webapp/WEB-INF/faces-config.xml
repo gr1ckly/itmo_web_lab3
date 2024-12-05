@@ -1,0 +1,57 @@
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
+
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>form</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/start.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>table</from-outcome>
+            <to-view-id>/table.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>point</managed-bean-name>
+        <managed-bean-class>com.example.lab_3.Point</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>pointList</managed-bean-name>
+        <managed-bean-class>com.example.lab_3.PointList</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>connectionDB</property-name>
+            <value>#{connectionDB}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>connectionDB</managed-bean-name>
+        <managed-bean-class>com.example.lab_3.ConnectionDB</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>formBean</managed-bean-name>
+        <managed-bean-class>com.example.lab_3.FormBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>pointList</property-name>
+            <value>#{pointList}</value>
+        </managed-property>
+    </managed-bean>
+
+    <application>
+        <message-bundle>messages</message-bundle>
+    </application>
+</faces-config>

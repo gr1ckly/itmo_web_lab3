@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Lab_3</title>
+    <h:outputStylesheet name="default/css/main_style.css" />
+    <h:outputStylesheet name="default/css/header_style.css" />
+</h:head>
+<h:body>
+    <header>
+        <div class="header-text">Медведев Ярослав Александрович</div>
+        <div class="header-text">Группа Р3212</div>
+        <div class="header-text">Вариант 12075</div>
+    </header>
+    <section class="horizontal-section">
+    <section class="vertical-section">
+    <h:form id="main-form">
+        <h:outputText value="X: "/>
+        <h:inputText id="x" value="#{formBean.x}" required="true">
+            <f:convertNumber type="number" />
+            <f:validateDoubleRange minimum="-5.0" maximum="5.0" />
+        </h:inputText>
+        <h:message styleClass="message" for="x" style="color: red;" />
+
+        <h:outputText id="y-output"  value="Y: #{formBean.y}"/>
+        <ace:sliderEntry id="y" min="-4" max="4" step="0.1" value="#{formBean.y}">
+            <ace:ajax event="slide" execute="@this" render="y-output" />
+        </ace:sliderEntry>
+
+        <h:outputText class="R" value="R: "/>
+        <h:outputText class="R" id="r-output" value="#{formBean.r}"/>
+        <ace:sliderEntry id="r" min="2" max="5" step="0.25" value="#{formBean.r}">
+            <ace:ajax event="slide" execute="@this" render="r-output, graph-form:graph-r"/>
+        </ace:sliderEntry>
+
+        <section class="horizontal-section">
+        <h:commandButton styleClass="main-submit" value="Send" action="#{formBean.submit}"/>
+            <h:commandButton styleClass="main-submit" value="Clear" action="#{formBean.clear}"/>
+        </section>
+    </h:form>
+    <canvas id="graphic" width="400px" height="400px">
+        Браузер не поддерживает canvas
+    </canvas>
+    </section>
+    <section class="vertical-section">
+        <div class="table-container">
+            <h:form>
+            <ace:dataTable class="date-table"
+                           var = "point"
+                           value = "#{pointList.getAllPoints()}"
+                           paginator="true"
+                           rows="10"
+                           paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                           rowsPerPageTemplate="5,10,20"
+                           paginatorPosition="bottom"
+                           selectionMode = "multiple" >
+                <ace:column headerText= "X" >
+                    <h:outputText class="x-table" value= "#{point.x}" />
+                </ace:column>
+
+                <ace:column headerText= "Y" >
+                    <h:outputText class="y-table" value= "#{point.y}" />
+                </ace:column>
+
+                <ace:column headerText= "R" >
+                    <h:outputText value= "#{point.r}" />
+                </ace:column>
+
+                <ace:column headerText= "Hitting" >
+                    <h:outputText class="hitting-table" value= "#{point.inArea}" />
+                </ace:column>
+
+                <ace:column headerText= "Start time" >
+                    <h:outputText value= "#{point.startTime}" />
+                </ace:column>
+
+                <ace:column headerText= "Processed time" >
+                    <h:outputText value= "#{point.processedTime}" />
+                </ace:column>
+            </ace:dataTable>
+            </h:form>
+        </div>
+        <section class="horizontal-section">
+        <h:button styleClass="home-submit" value="Home" outcome="home"/>
+        <h:button styleClass="home-submit" value="More" outcome="table"/>
+        </section>
+
+    <h:form id="graph-form" style="display: none">
+        <h:inputText id="graph-x" value="#{formBean.x}" required="true"/>
+        <h:inputText id="graph-y" value="#{formBean.y}" required="true"/>
+        <h:inputText id="graph-r" value="#{formBean.r}" required="true"/>
+        <h:commandButton id="graph-button" value="Send" action="#{formBean.submit}"/>
+    </h:form>
+    </section>
+    </section>
+    <h:outputScript name="default/scripts/graphic.js"></h:outputScript>
+</h:body>
+</html>

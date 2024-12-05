@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Lab_3</title>
+    <h:outputStylesheet name="default/css/header_style.css" />
+</h:head>
+<h:body>
+    <header>
+        <div class="header-text">Медведев Ярослав Александрович</div>
+        <div class="header-text">Группа Р3212</div>
+        <div class="header-text">Вариант 12075</div>
+    </header>
+    <section class="horizontal-section">
+        <h:button styleClass="home-submit" value="Home" outcome="home"/>
+        <h:button styleClass="home-submit" value="Return" outcome="main"/>
+    </section>
+    <div class="table-container">
+        <h:form>
+            <ace:dataTable class="date-table"
+                           var = "point"
+                           value = "#{pointList.getAllPoints()}">
+                <ace:column headerText= "X" >
+                    <h:outputText class="x-table" value= "#{point.x}" />
+                </ace:column>
+
+                <ace:column headerText= "Y" >
+                    <h:outputText class="y-table" value= "#{point.y}" />
+                </ace:column>
+
+                <ace:column headerText= "R" >
+                    <h:outputText value= "#{point.r}" />
+                </ace:column>
+
+                <ace:column headerText= "Hitting" >
+                    <h:outputText class="hitting-table" value= "#{point.inArea}" />
+                </ace:column>
+
+                <ace:column headerText= "Start time" >
+                    <h:outputText value= "#{point.startTime}" />
+                </ace:column>
+
+                <ace:column headerText= "Processed time" >
+                    <h:outputText value= "#{point.processedTime}" />
+                </ace:column>
+            </ace:dataTable>
+        </h:form>
+    </div>
+</h:body>
+</html>
